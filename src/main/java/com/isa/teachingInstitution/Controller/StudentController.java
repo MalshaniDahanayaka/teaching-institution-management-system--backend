@@ -1,14 +1,19 @@
 package com.isa.teachingInstitution.Controller;
+import com.isa.teachingInstitution.Model.Course;
+import com.isa.teachingInstitution.Model.Request.CourseEnrollRequest;
 import com.isa.teachingInstitution.Model.Student;
+import com.isa.teachingInstitution.Model.StudentCourseEnrollment;
 import com.isa.teachingInstitution.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @PreAuthorize("hasRole('ROLE_Student')")
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
     @GetMapping("/profile/{username}")
     public Object getProfileData(@PathVariable String username){
 
@@ -26,5 +32,22 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.OK).getBody();
     }
 
+
+    @PostMapping("/enroll/course")
+    public StudentCourseEnrollment enrollToCourse(@RequestBody CourseEnrollRequest courseEnrollRequest,
+                                                  @AuthenticationPrincipal UserDetails userDetails){
+
+        return studentService.enrollToCourse(courseEnrollRequest, userDetails.getUsername());
     }
+
+    @GetMapping("/enrolled/courses/{userName}")
+    public List<Course> getEnrolledCoursesData(@PathVariable String userName,
+                                               @AuthenticationPrincipal UserDetails userDetails){
+
+        List<Course> courses =  studentService.getCoursesData(userName);
+
+        return courses;
+    }
+
+}
 
