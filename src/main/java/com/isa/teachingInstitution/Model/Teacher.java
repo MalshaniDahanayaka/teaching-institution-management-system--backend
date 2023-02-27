@@ -1,7 +1,6 @@
 package com.isa.teachingInstitution.Model;
 
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -12,6 +11,10 @@ public class Teacher extends User{
 
     @Column(name="teacher_id")
     private String teacherID;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
 
     public Teacher(String firstName, String lastName, String username, String email, String password, String role,
                    String teacherID) {
@@ -25,5 +28,13 @@ public class Teacher extends User{
 
     public void setTeacherID(String teacherID) {
         this.teacherID = teacherID;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
