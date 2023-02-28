@@ -1,6 +1,7 @@
 package com.isa.teachingInstitution.Controller;
 
 import com.isa.teachingInstitution.Model.Course;
+import com.isa.teachingInstitution.Model.Request.AddCourseRequest;
 import com.isa.teachingInstitution.Model.Student;
 import com.isa.teachingInstitution.Model.Teacher;
 import com.isa.teachingInstitution.Model.User;
@@ -9,13 +10,13 @@ import com.isa.teachingInstitution.Repository.ManagementTeamRepository;
 import com.isa.teachingInstitution.Service.ManagementTeamService;
 import com.isa.teachingInstitution.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_Admin')")
 @RequestMapping("/api/managementTeam")
 public class ManagementTeamController {
     @Autowired
@@ -23,9 +24,9 @@ public class ManagementTeamController {
 
     @GetMapping("/allCourses")
     public List<Course> getAllCourses(){
-
         return managementTeamService.getAllCourses();
     }
+
     @GetMapping("/allStudents")
     public List<Student> getAllStudents(){
         return managementTeamService.getAllStudents();
@@ -35,8 +36,14 @@ public class ManagementTeamController {
     public List<Teacher> getAllTeachers(){
         return managementTeamService.getAllTeachers();
     }
+
     @GetMapping("/allUsers")
     public List<User> getAllUsers(){
         return managementTeamService.getAllUsers();
+    }
+
+    @PostMapping("/create-course")
+    public Course createCourse(@RequestBody AddCourseRequest addCourseRequest){
+        return managementTeamService.createCourse(addCourseRequest);
     }
 }
