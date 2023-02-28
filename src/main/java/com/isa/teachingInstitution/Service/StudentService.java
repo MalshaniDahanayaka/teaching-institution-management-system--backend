@@ -27,16 +27,7 @@ public class StudentService {
 
     public Student getProfileData(String username){
 
-        Student student = studentRepository.findById(username).get();
-        return new Student(
-                student.getFirstName(),
-                student.getLastName(),
-                student.getUsername(),
-                student.getEmail(),
-                null,
-                student.getRole(),
-                student.getStudentID()
-        );
+        return studentRepository.findById(username).get();
     }
 
     public StudentCourseEnrollment enrollToCourse(@RequestBody CourseEnrollRequest courseEnrollRequest, String username){
@@ -49,7 +40,7 @@ public class StudentService {
         return studentCourseEnrollmentRepository.save(studentCourse);
     }
 
-    public List<Course> getCoursesData(String username){
+    public List<Course> getEnrolledCourses(String username){
 
         Student student = studentRepository.findById(username).get();
         System.out.println(student.getCourses());
