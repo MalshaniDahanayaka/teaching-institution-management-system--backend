@@ -1,5 +1,6 @@
 package com.isa.teachingInstitution.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
@@ -12,8 +13,8 @@ public class Teacher extends User{
     @Column(name="teacher_id")
     private String teacherID;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    @OneToOne(mappedBy = "teacher")
+    @JsonIgnore
     private Course course;
 
     public Teacher(String firstName, String lastName, String username, String email, String password, String role,

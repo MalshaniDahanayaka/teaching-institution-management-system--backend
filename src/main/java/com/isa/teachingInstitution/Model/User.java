@@ -1,5 +1,6 @@
 package com.isa.teachingInstitution.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class User {
     private String email;
 
     @Column(name="password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name="role", nullable = false)
