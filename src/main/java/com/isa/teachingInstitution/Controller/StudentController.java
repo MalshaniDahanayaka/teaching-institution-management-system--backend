@@ -41,10 +41,10 @@ public class StudentController {
     }
 
     @GetMapping("/enrolled/courses/{userName}")
-    public List<Course> getEnrolledCoursesData(@PathVariable String userName,
+    public List<Course> getEnrolledCourses(@PathVariable String userName,
                                                @AuthenticationPrincipal UserDetails userDetails){
 
-        List<Course> courses =  studentService.getCoursesData(userName);
+        List<Course> courses =  studentService.getEnrolledCourses(userName);
 
         return courses;
     }
