@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -51,11 +48,33 @@ public class StudentService {
                     data.getCourseID(),
                     data.getCourseName(),
                     data.getAboutCourse(),
-                    data.getTimeSlot()
+                    data.getTimeSlot(),
+                    data.getTeacher()
             );
             courseList.add(course);
         }
         return courseList;
+   }
+
+    public boolean checkEnrollment(String courseID, String username) {
+
+       StudentCourseEnrollment studentCourseEnrollment =
+               studentCourseEnrollmentRepository.findByCourseIDAndUsername(courseID, username);
+       if(studentCourseEnrollment == null){
+           return false;
+       }else {
+           return true;
+       }
     }
 
+    public ResponseEntity<?> unenrollStudent(String courseID, String username){
+
+        StudentCourseEnrollment studentCourseEnrollment =
+                studentCourseEnrollmentRepository.findByCourseIDAndUsername(courseID, username);
+        if (studentCourseEnrollment == null) {
+            return ResponseEntity.notFound().build();
+        }
+        studentCourseEnrollmentRepository.delete(studentCourseEnrollment);
+        return ResponseEntity.ok().build();
+    }
 }
