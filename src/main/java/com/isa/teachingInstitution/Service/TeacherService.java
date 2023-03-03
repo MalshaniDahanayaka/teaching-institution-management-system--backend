@@ -51,7 +51,8 @@ public class TeacherService {
                 teacher.getCourse().getCourseID(),
                 teacher.getCourse().getCourseName(),
                 teacher.getCourse().getAboutCourse(),
-                teacher.getCourse().getTimeSlot()
+                teacher.getCourse().getTimeSlot(),
+                null
         );
     }
 }

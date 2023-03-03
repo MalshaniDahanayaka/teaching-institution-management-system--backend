@@ -20,7 +20,7 @@ public class Student extends User{
     @ManyToMany
     @JoinTable(
             name = "student_course_enrollment",
-            joinColumns = @JoinColumn(name = "student_id"),
+            joinColumns = @JoinColumn(name = "student_username"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private List<Course> courses = new ArrayList<>();

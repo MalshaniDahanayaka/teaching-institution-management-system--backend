@@ -10,7 +10,6 @@ import java.util.List;
 
 @NoArgsConstructor
 @Entity
-@Table
 @Data
 @AllArgsConstructor
 public class Course {
@@ -37,11 +36,12 @@ public class Course {
     @JoinColumn(name = "teacher_username", referencedColumnName = "username")
     private Teacher teacher;
 
-    public Course(String courseID, String courseName, String aboutCourse, String timeSlot) {
+    public Course(String courseID, String courseName, String aboutCourse, String timeSlot, Teacher teacher) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.aboutCourse = aboutCourse;
         this.timeSlot = timeSlot;
+        this.teacher = teacher;
     }
 
 

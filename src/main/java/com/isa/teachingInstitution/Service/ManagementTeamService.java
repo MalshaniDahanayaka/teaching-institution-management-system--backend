@@ -41,22 +41,8 @@ public class ManagementTeamService {
 
     public List<Student> getAllStudents(){
         try {
-            List<Student> students =  studentRepository.findAll();
-            List<Student> studentList = new ArrayList<>();
-            for(Student student: students){
-                studentList.add(
-                        new Student(
-                                student.getFirstName(),
-                                student.getLastName(),
-                                student.getUsername(),
-                                "",
-                                student.getEmail(),
-                                student.getRole(),
-                                student.getStudentID()
-                        )
-                );
-            }
-            return studentList;
+            return studentRepository.findAll();
+
         } catch (Exception e) {
             throw new ManagementTeamServiceException("Error retrieving students", e);
         }
@@ -64,23 +50,7 @@ public class ManagementTeamService {
 
     public List<Teacher> getAllTeachers(){
         try {
-            List<Teacher> teachers = teacherRepository.findAll();
-            List<Teacher> teacherList = new ArrayList<>();
-            for(Teacher teacher: teachers){
-                teacherList.add(
-                        new Teacher(
-                                teacher.getFirstName(),
-                                teacher.getLastName(),
-                                teacher.getUsername(),
-                                teacher.getEmail(),
-                                "",
-                                teacher.getRole(),
-                                teacher.getTeacherID()
-                        )
-                );
-            }
-
-            return teacherList;
+            return  teacherRepository.findAll();
         } catch (Exception e) {
             throw new ManagementTeamServiceException("Error retrieving teachers", e);
         }
@@ -88,21 +58,8 @@ public class ManagementTeamService {
 
     public List<User> getAllUsers(){
         try{
-            List<User> users = userRepository.findAll();
-            List<User> userList = new ArrayList<>();
-            for(User user : users){
-                userList.add(
-                        new User(
-                                user.getFirstName(),
-                                user.getLastName(),
-                                user.getUsername(),
-                                user.getEmail(),
-                                "",
-                                user.getRole()
-                        )
-                );
-            }
-            return userList;
+            return userRepository.findAll();
+
         }catch (Exception e){
             throw new ManagementTeamServiceException("Error retrieving users",e);
         }
@@ -116,13 +73,12 @@ public class ManagementTeamService {
                 addCourseRequest.getCourseID(),
                 addCourseRequest.getCourseName(),
                 addCourseRequest.getAboutCourse(),
-                addCourseRequest.getTimeSlot()
+                addCourseRequest.getTimeSlot(),
+                null
         );
 
         course.setTeacher(teacher);
         courseRepository.save(course);
-//        teacher.setCourse(course);
-//        teacherRepository.save(teacher);
 
         return courseRepository.save(course);
     }
