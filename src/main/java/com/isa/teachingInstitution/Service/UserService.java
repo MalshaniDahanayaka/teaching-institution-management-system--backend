@@ -1,6 +1,7 @@
 package com.isa.teachingInstitution.Service;
 
 import com.isa.teachingInstitution.Model.Course;
+import com.isa.teachingInstitution.Model.Student;
 import com.isa.teachingInstitution.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserService {
     @Autowired
     private CourseRepository courseRepository;
+
     public List<Course> getAllCourses(){
 
         try {
@@ -19,4 +21,12 @@ public class UserService {
             throw new RuntimeException("Failed to retrieve courses from the repository.");
         }
     }
+
+    public int courseEnrollments(String courseID){
+
+        Course course = courseRepository.findById(courseID).get();
+        List<Student> students = course.getStudents();
+        return (students.size());
+    }
+
 }

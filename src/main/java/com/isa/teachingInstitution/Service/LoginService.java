@@ -21,10 +21,13 @@ import java.util.Set;
 public class LoginService implements UserDetailsService {
   @Autowired
   private UserRepository userRepository;
+
   @Autowired
   private JwtUtil jwtUtil;
+
   @Autowired
   private AuthenticationManager authenticationManager;
+
   public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception{
     String username = jwtRequest.getUsername();
     String password = jwtRequest.getPassword();
@@ -41,7 +44,7 @@ public class LoginService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findById(username).get();
+      User user = userRepository.findById(username).get();
 
     if(user != null){
       return new org.springframework.security.core.userdetails.User(

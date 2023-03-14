@@ -19,13 +19,15 @@ public class SignupController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignupRequest signupRequest){
-
+        User user;
         try {
-            signupService.createUser(signupRequest);
+            user = signupService.createUser(signupRequest);
         } catch (UserAlreadyExistsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>("User successfully registered.", HttpStatus.CREATED);
+        return new ResponseEntity<>(user.getFirstName() +" successfully registered.", HttpStatus.CREATED);
     }
+
+
 
 }

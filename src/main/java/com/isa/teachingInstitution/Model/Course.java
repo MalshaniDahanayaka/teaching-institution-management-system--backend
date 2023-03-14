@@ -12,10 +12,13 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
+@Table(name = "course", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"course_id", "teacher_username"})
+})
 public class Course {
 
     @Id
-    @Column(name = "course_id")
+    @Column(name = "course_id", nullable = false)
     private String courseID;
 
     @Column(name = "course_name")
@@ -31,7 +34,6 @@ public class Course {
     @JsonIgnore
     private List<Student> students = new ArrayList<>();
 
-
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_username", referencedColumnName = "username")
     private Teacher teacher;
@@ -44,52 +46,4 @@ public class Course {
         this.teacher = teacher;
     }
 
-
-//    public String getCourseID() {
-//        return courseID;
-//    }
-//
-//    public void setCourseID(String courseID) {
-//        this.courseID = courseID;
-//    }
-//
-//    public String getCourseName() {
-//        return courseName;
-//    }
-//
-//    public void setCourseName(String courseName) {
-//        this.courseName = courseName;
-//    }
-//
-//    public String getAboutCourse() {
-//        return aboutCourse;
-//    }
-//
-//    public void setAboutCourse(String aboutCourse) {
-//        this.aboutCourse = aboutCourse;
-//    }
-//
-//    public String getTimeSlot() {
-//        return timeSlot;
-//    }
-//
-//    public void setTimeSlot(String timeSlot) {
-//        this.timeSlot = timeSlot;
-//    }
-//
-//    public List<Student> getStudents() {
-//        return students;
-//    }
-//
-//    public void setStudents(List<Student> students) {
-//        this.students = students;
-//    }
-//
-//    public Teacher getTeacher() {
-//        return teacher;
-//    }
-//
-//    public void setTeacher(Teacher teacher) {
-//        this.teacher = teacher;
-//    }
 }

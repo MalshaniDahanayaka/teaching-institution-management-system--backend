@@ -19,9 +19,8 @@ public class LogoutController {
     public String logout() {
         String authToken = request.getHeader("auth-token");
         String token = authToken.substring(7);
-        System.out.println(token);
-        logoutService.invalidateToken(token);
-        return "logout success";
+        return logoutService.invalidateToken(token);
+
     }
 
 

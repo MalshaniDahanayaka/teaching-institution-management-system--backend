@@ -1,18 +1,18 @@
 package com.isa.teachingInstitution.Service;
 
 import com.isa.teachingInstitution.Exceptions.UserAlreadyExistsException;
+import com.isa.teachingInstitution.Model.ManagementTeam;
 import com.isa.teachingInstitution.Model.Request.SignupRequest;
 import com.isa.teachingInstitution.Model.Student;
 import com.isa.teachingInstitution.Model.Teacher;
 import com.isa.teachingInstitution.Model.User;
+import com.isa.teachingInstitution.Repository.ManagementTeamRepository;
 import com.isa.teachingInstitution.Repository.StudentRepository;
 import com.isa.teachingInstitution.Repository.TeacherRepository;
 import com.isa.teachingInstitution.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.Objects;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,6 +26,9 @@ public class SignupService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ManagementTeamRepository managementTeamRepository;
+
     public String getEncodePassword(String password) {
         return passwordEncoder.encode(password);
     }
@@ -68,6 +71,21 @@ public class SignupService {
 
             }
 
+            if (Objects.equals(signupRequest.getRole().toLowerCase(), "admin")) {
+
+                ManagementTeam managementTeam = new ManagementTeam();
+                managementTeam.setFirstName(signupRequest.getFirstName());
+                managementTeam.setLastName(signupRequest.getLastName());
+                managementTeam.setUsername(signupRequest.getUsername());
+                managementTeam.setEmail(signupRequest.getEmail());
+                managementTeam.setRole(signupRequest.getRole());
+                managementTeam.setPassword(getEncodePassword(signupRequest.getPassword()));
+                managementTeam.setAdminID(signupRequest.getUserID());
+
+                managementTeamRepository.save(managementTeam);
+
+            }
+
             User user = new User();
             user.setFirstName(signupRequest.getFirstName());
             user.setLastName(signupRequest.getLastName());
@@ -75,6 +93,7 @@ public class SignupService {
             user.setEmail(signupRequest.getEmail());
             user.setPassword(getEncodePassword((signupRequest.getPassword())));
             user.setRole(signupRequest.getRole());
+
 
             return user;
         }

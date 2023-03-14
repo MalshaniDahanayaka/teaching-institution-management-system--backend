@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     @Autowired
     private LoginService loginService;
+
     @PostMapping("/user")
     public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception{
         return loginService.createJwtToken(jwtRequest);

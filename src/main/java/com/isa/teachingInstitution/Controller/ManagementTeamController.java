@@ -46,4 +46,11 @@ public class ManagementTeamController {
     public Course createCourse(@RequestBody AddCourseRequest addCourseRequest){
         return managementTeamService.createCourse(addCourseRequest);
     }
+
+    @GetMapping("/teachersWithNoCourses")
+    public List<Teacher> getTeachersWithNoCourses(){
+        return managementTeamService.getTeachersWithNoCourses();
+    }
+
+
 }

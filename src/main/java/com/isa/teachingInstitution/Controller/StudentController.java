@@ -23,9 +23,6 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
-    private StudentCourseEnrollmentRepository studentCourseEnrollmentRepository;
-
     @GetMapping("/profile/{username}")
     public Object getProfileData(@PathVariable String username){
 

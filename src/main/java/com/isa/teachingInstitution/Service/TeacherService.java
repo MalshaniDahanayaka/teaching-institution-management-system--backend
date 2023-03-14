@@ -35,8 +35,8 @@ public class TeacherService {
                             student.getFirstName(),
                             student.getLastName(),
                             student.getUsername(),
-                            "",
                             student.getEmail(),
+                            student.getPassword(),
                             student.getRole(),
                             student.getStudentID()
                     )
@@ -52,7 +52,7 @@ public class TeacherService {
                 teacher.getCourse().getCourseName(),
                 teacher.getCourse().getAboutCourse(),
                 teacher.getCourse().getTimeSlot(),
-                null
+                teacher
         );
     }
 }

@@ -9,7 +9,8 @@ public class LogoutService {
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-    public void invalidateToken(String token) {
-        jwtRequestFilter.invalidateToken(token);
+
+    public String invalidateToken(String token) {
+        return jwtRequestFilter.invalidateToken(token);
     }
 }

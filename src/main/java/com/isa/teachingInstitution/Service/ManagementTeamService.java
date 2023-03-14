@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ManagementTeamService {
@@ -78,8 +79,18 @@ public class ManagementTeamService {
         );
 
         course.setTeacher(teacher);
-        courseRepository.save(course);
-
         return courseRepository.save(course);
     }
+
+    public List<Teacher> getTeachersWithNoCourses() {
+        List<Teacher> allTeachers = teacherRepository.findAll();
+        List<Teacher> teachersWithCourses = courseRepository.findAll().stream()
+                .map(course -> course.getTeacher())
+                .filter(teacher -> teacher != null)
+                .collect(Collectors.toList());
+        List<Teacher> teachersWithNoCourses = new ArrayList<>(allTeachers);
+        teachersWithNoCourses.removeAll(teachersWithCourses);
+        return teachersWithNoCourses;
+    }
+
 }

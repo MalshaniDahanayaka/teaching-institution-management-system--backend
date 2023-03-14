@@ -66,8 +66,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    public void invalidateToken(String token) {
+    public String invalidateToken(String token) {
         invalidatedTokens.add(token);
+        return token;
     }
     public boolean isTokenValid(String token) {
         return !invalidatedTokens.contains(token);

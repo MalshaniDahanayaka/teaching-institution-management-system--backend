@@ -12,11 +12,11 @@ public class CorsConfig implements WebMvcConfigurer{
   private static final String DELETE = "DELETE";
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-      registry.addMapping("/**")
-              .allowedMethods(GET, PUT, DELETE, POST)
-              .allowedHeaders("*")
-              .allowedOrigins("http://localhost:3000", "http://localhost:8095")
-              .allowCredentials(false);
+      registry.addMapping("/**");
+//              .allowedMethods(GET, PUT, DELETE, POST)
+//              .allowedHeaders("*")
+//              .allowedOrigins("http://localhost:3000", "http://localhost:8095")
+//              .allowCredentials(false);
 
     }
   }
