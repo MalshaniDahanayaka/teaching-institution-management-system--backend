@@ -1,7 +1,6 @@
 package com.isa.teachingInstitution.Service;
 
 import com.isa.teachingInstitution.Model.Course;
-import com.isa.teachingInstitution.Model.Request.CourseEnrollRequest;
 import com.isa.teachingInstitution.Model.Student;
 import com.isa.teachingInstitution.Model.Teacher;
 import com.isa.teachingInstitution.Repository.CourseRepository;

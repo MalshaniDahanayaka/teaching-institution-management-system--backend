@@ -51,6 +51,9 @@ public class ManagementTeamController {
     public List<Teacher> getTeachersWithNoCourses(){
         return managementTeamService.getTeachersWithNoCourses();
     }
+    @GetMapping("/enrolled/students-for-course/{courseID}")
+    public List<Student> courseEnrolledStudents(@PathVariable String courseID){
 
-
+        return managementTeamService.courseEnrolledStudents(courseID);
+    }
 }

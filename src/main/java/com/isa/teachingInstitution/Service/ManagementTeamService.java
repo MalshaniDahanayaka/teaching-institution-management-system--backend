@@ -92,5 +92,23 @@ public class ManagementTeamService {
         teachersWithNoCourses.removeAll(teachersWithCourses);
         return teachersWithNoCourses;
     }
-
+    public List<Student> courseEnrolledStudents(String courseID){
+        Course course = courseRepository.findById(courseID).get();
+        List<Student> students = course.getStudents();
+        List<Student> studentList = new ArrayList<>();
+        for(Student student:students){
+            studentList.add(
+                    new Student(
+                            student.getFirstName(),
+                            student.getLastName(),
+                            student.getUsername(),
+                            student.getEmail(),
+                            student.getPassword(),
+                            student.getRole(),
+                            student.getStudentID()
+                    )
+            );
+        }
+        return studentList;
+    }
 }
